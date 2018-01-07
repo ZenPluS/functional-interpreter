@@ -1,0 +1,53 @@
+\documentclass{article}
+
+
+\title{[PR2] Secondo Progetto 2016/2017 --- Corso A}
+\author{Marco Pampaloni}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\date{15/01/2017}
+\hypersetup{
+    colorlinks, urlcolor=blue
+}
+
+
+\begin{document}
+    \pagenumbering{gobble}
+    \maketitle
+    \pagenumbering{arabic}
+    \section{Scelte progettuali}
+    Di seguito, le motivazioni alla base delle principali scelte progettuali.
+    
+    \paragraph{Pipe: }
+    L'esempio che mostrava l'estensione basilare del tipo di dato algebrico $exp$
+    sembrava presupponesse che una volta valutata, una pipe, non fosse nient'altro che 
+    una tupla di funzioni.
+    È stato invece deciso di separare concettualmente il tipo esprimibile ($etype$) Tuple 
+    dal tipo esprimibile Pipe, al fine di non confondere le operazioni tra i due tipi.
+    Infatti, oltre alle specifiche richieste dal testo, sono state implementate ulteriori
+    funzionalità, quali gli operatori di $Head$, $Tail$ e $Cons$. Tali operazioni dovrebbero
+    essere eseguibili soltanto su costrutti di tipo Tuple e non su valori di tipo Pipe, in quanto
+    questi ultimi, concettualmente, non sono altro che delle funzioni e l'introduzione di operazioni 
+    che agissero su di esse come se fossero delle tuple (o delle liste) non sarebbe stata corretta.
+    Concludendo, è importante notare come le tuple non effettuino alcun controllo sui
+    tipi che contengono, rendendole delle collezioni eterogenee di valori, mentre
+    il tipo esprimibile Pipe è di fatto una lista ordinata di chiusure (non ricorsive),
+    dove la relazione di ordinamento è la priorità di esecuzione.
+
+    \paragraph{Typechecker: }
+    L'implementazione dell'interprete del linguaggio nasconde la struttura del typechecker 
+    in quanto è stato scelto di non separare le due implementazioni: data la semplicità
+    del codice e data la natura didattica del linguaggio, nessuna ragione valida valeva l'introduzione
+    di un costrutto esterno atto al controllo dinamico dei tipi.
+    Si è scelto inoltre di non effettuare alcun controllo dinamico specifico sulla validità
+    dell'operatore di piping, in quanto anche se gli operandi presentassero tipi incompatibili,
+    ogni operazione illecita tra questi, verrebbe intercettata ai livelli più bassi della ricorsione.
+
+    \paragraph{Test cases: }
+    All'interno del file $test.ml$ sono presenti alcuni test cases che mostrano le funzionalità del
+    linguaggio implementato quali la ricorsione, l'operatore di piping, l'utilizzo di tuple come valori
+    esprimibili, l'operatore ManyTimes (che crea una Pipe di una funzione concatenata a se stessa $n$
+    volte), e il funzionamento delle operazioni (non richieste) di $Head$, $Tail$ e $Cons$.
+\end{document}
